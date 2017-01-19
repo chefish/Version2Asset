@@ -36,8 +36,8 @@ dependencies {
 def  runtime_config_file = 'app/src/main/assets/runtime_config'
 
 project.afterEvaluate{
-    println "我擦task size "+tasks.size()
-    //找到 preDebugBuild 任务，然后添加一个 Action
+    println "task size "+tasks.size()
+    //找到 prepareDebugDependencies 任务，然后添加一个 Action
     tasks.getByName("prepareDebugDependencies"){
         it.doFirst{
             println "generate debug configuration for ${project.name}"
@@ -47,7 +47,7 @@ project.afterEvaluate{
             }
         }
     }
-    //找到 preReleaseBuild 任务
+    //找到 prepareReleaseDependencies 任务
 
     tasks.getByName("prepareReleaseDependencies"){
         it.doFirst{
@@ -58,10 +58,7 @@ project.afterEvaluate{
             }
         }
     }
-    //找到 preDemoBuild。这个任务明显是因为我们在 buildType 里添加了一个 demo 的元素
-
-    //所以 Android APP 插件自动为我们生成的
-
+    //找到 prepareDemoDependencies
     tasks.getByName("prepareDemoDependencies"){
         it.doFirst{
             println "generate demo configuration for ${project.name}"
